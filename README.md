@@ -1,44 +1,110 @@
-# Ghosty
+# 👻 Ghosty — Never Let a Great Conversation Ghost You
 
-Ghosty is a mobile-first conference companion that turns voice notes into structured relationship follow-up. Tap the mic after a conversation, get a contact card, see a transparent Connection Value Score, and draft a specific follow-up before the context fades.
+![Ghosty Banner](src/public/banner.png)
 
-## What Works Now
-- Expo React Native prototype with dark premium mobile UI.
-- Sign-in screen with student/recruiter role selection.
-- Editable profile with bio, resumes, URLs, skills, and QR code.
-- Events screen with attending companies, booth summaries, recruiter lists, and pitch hints.
-- Conversation logging via text, voice, or upload with AI-powered review.
-- Real microphone recording via `expo-av` on iOS/Android with permission handling.
-- Real OpenAI Whisper transcription when `EXPO_PUBLIC_OPENAI_API_KEY` is set.
-- Real Claude extraction and draft generation when `EXPO_PUBLIC_ANTHROPIC_API_KEY` is set.
-- Deterministic demo fallbacks so the app runs without any API keys.
-- Transparent scoring breakdown with salary-band estimate.
-- Follow-up priority queue with AI-powered "Make shorter", "More formal", and "Add skill highlight" quick actions.
-- Magic Wand with Job Search and Referral Assist tabs for network matching.
-- QR Quick Add screen for identity exchange.
-- Kiro-compatible specs, hooks, and steering docs in `.kiro/`.
+---
 
-## Run Locally
+## 🏆 Winner — Kiro Spark Challenge 2026
+
+![Winner](src/public/win.png)
+
+**Ghosty won at the Kiro Spark Challenge 2026** at Arizona State University — a 24-hour hackathon sponsored by AWS where teams built AI-powered solutions using Kiro's spec-driven development workflow.
+
+**Frame:** Economics — The Transparency Guardrail  
+**Challenge:** Expose a hidden economic factor and turn invisible data into actionable financial insight.
+
+---
+
+## 🎬 Watch the Demo
+
+[![Watch Demo](https://img.shields.io/badge/YouTube-Watch%20Demo-red?style=for-the-badge&logo=youtube)](https://youtu.be/w4Mj_PnkQ2s)
+
+---
+
+## The Problem
+
+Every conference ends the same way. You meet incredible people, exchange a few words — and within 48 hours, 80% of what made those conversations valuable is gone. The follow-up never happens. The opportunity disappears.
+
+A single recruiter connection can be worth **$15K–$80K** in salary negotiation. A mentor relationship can shorten a career pivot by years. But nobody tracks this value. Nobody sees it. **84% of conference connections are never followed up on.**
+
+## The Solution
+
+Ghosty is a **voice-first mobile conference companion** that captures the context behind every human connection before it disappears — and turns social capital into a transparent, actionable career asset.
+
+Tap the mic after a conversation. Speak for 15 seconds. Get a structured contact card with a **transparent Connection Value Score** showing the real dollar value of that relationship. Draft a personalized follow-up that references your actual conversation — not a generic template.
+
+---
+
+## ✨ Features
+
+### 📋 Profile & Identity
+- Editable profile with bio, skills, resumes, and QR code for instant identity exchange.
+
+### 🗓️ Event Battle Plan
+- Pre-event intelligence: attending companies, booth numbers, recruiter names, hiring signals.
+- Personalized pitch hints for each company based on your skills and career goals.
+
+### 🎙️ Voice Capture → AI Extraction
+- One-tap recording with real microphone via `expo-av`.
+- OpenAI Whisper transcription → Claude structured extraction.
+- Generates contact cards with name, role, company, intent tag, key details, and follow-up date.
+
+### 📊 Transparent Connection Value Score
+- Score from 1–10 with full visible breakdown: role seniority, company tier, career relevance, intent type, recency.
+- Salary band estimate with source label.
+- Score decays 10% per week without follow-up — urgency is built in.
+
+### ✍️ AI-Powered Follow-Up Drafts
+- Personalized LinkedIn messages, emails, and cover letters referencing your actual conversation.
+- AI quick actions: "Make shorter", "More formal", "Add skill highlight" — Claude rewrites in real time.
+
+### 🪄 Magic Wand — Network Intelligence
+- Job Search: find contacts by role or company.
+- Referral Assist: one-tap prompts like "Who can introduce me to a hiring manager?"
+
+### 📱 QR Quick Add
+- Flash your Ghosty code for instant identity exchange at events.
+
+---
+
+## 🚀 Run Locally
 
 ```bash
 npm install
 npx expo start --tunnel
 ```
 
-Scan the QR code with Expo Go on your phone.
+Scan the QR code with **Expo Go** on your phone.
 
-## Environment Variables
+### Optional API Keys
 
-The app runs without any keys for demo/judging. To enable real AI integrations:
+The app runs fully in demo mode without any keys. To enable real AI:
 
 ```bash
 EXPO_PUBLIC_OPENAI_API_KEY=sk-...        # Whisper transcription
 EXPO_PUBLIC_ANTHROPIC_API_KEY=sk-ant-... # Claude extraction & drafting
 ```
 
-When keys are missing, each service falls back to deterministic demo data.
+---
 
-## Project Structure
+## 🏗️ Architecture
+
+```mermaid
+flowchart TD
+  A[Sign In] --> B[Profile]
+  B --> C[Events — Company Intel]
+  C --> D[Attend Booth — Voice/Text Capture]
+  D --> E[Whisper Transcription]
+  E --> F[Claude Extraction]
+  F --> G[Transparent Scoring]
+  G --> H[Contact Card]
+  H --> I[Follow-Up Queue]
+  I --> J[AI Draft Editor + Quick Actions]
+  B --> K[Magic Wand — Network Search]
+  B --> L[QR Quick Add]
+```
+
+## 📁 Project Structure
 
 ```text
 .kiro/                 Specs, hooks, and steering docs
@@ -47,17 +113,44 @@ src/hooks/             Recorder (expo-av), queue, alert state
 src/screens/           SignIn, Profile, Events, FollowUp, Wand, QR, ContactDetail
 src/services/          Whisper, Claude, scoring, calendar stub, Supabase stub, Ghosty AI
 src/data/              Sample contacts (real mentors), events, profile
-supabase/              Schema migration and voice-processing edge function (ready for production)
+supabase/              Schema migration and edge function (production-ready)
 ```
 
-## Demo Flow
-1. Sign in as a student with sbishno2@asu.edu.
-2. View your profile — Shrey Bishnoi, Software Engineer, ASU.
-3. Go to Events — see the Kiro Spark Challenge with AWS, Toptal, Amazon, AI Cloud Innovation Center.
-4. Tap a company → Summary shows recruiters, about, pitch hint. Attend Booth opens conversation logging.
-5. Go to Follow Up — see prioritized mentor contacts. Tap one, use AI quick actions to refine drafts.
-6. Go to Magic Wand — search by job title or use referral assist prompts to find best matches.
-7. Go to QR — share your Ghosty identity code.
+---
 
-## Privacy Posture
-Ghosty is explicit tap-to-record only. A red pulsing indicator is always visible while recording. The Supabase schema enforces row-level security so users own their data. Voice memos are processed and not stored.
+## 🛠️ Built With
+
+| Layer | Technology |
+|---|---|
+| Frontend | React Native + Expo |
+| Voice Capture | expo-av |
+| Transcription | OpenAI Whisper API |
+| AI Extraction & Drafting | Claude (Anthropic) |
+| Scoring | Custom transparent algorithm |
+| Backend Schema | Supabase Postgres + RLS |
+| Development | Kiro — spec-driven development |
+| Language | TypeScript (strict mode) |
+
+---
+
+## 🧠 Built with Kiro
+
+Ghosty was developed using **Kiro's spec-driven workflow**:
+- **6 specs** defining requirements before code
+- **3 steering docs** guiding AI extraction, scoring, and UI design
+- **4 agent hooks** documenting reactive workflows
+- **Vibe coding** for UI iteration and feature refinement
+
+See [`KIRO_USAGE.md`](KIRO_USAGE.md) for the full write-up on how Kiro shaped the build.
+
+---
+
+## 👥 Team
+
+Built in 24 hours at the **Kiro Spark Challenge 2026** at Arizona State University.
+
+---
+
+## 📄 License
+
+MIT — see [LICENSE](LICENSE)
