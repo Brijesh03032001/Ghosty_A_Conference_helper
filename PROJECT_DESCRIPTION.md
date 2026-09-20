@@ -4,7 +4,7 @@
 
 ## Problem
 
-Professional relationships built at conferences have direct, measurable career and financial value — a recruiter connection can be worth $15K–$80K in salary negotiation, a mentor relationship can shorten a career inflection point by years. Yet this value is invisible, untracked, and almost always wasted because follow-through fails. 84% of conference connections are never followed up on. The economic cost of lost social capital is enormous and completely hidden.
+Professional relationships built at conferences have real career and financial value — a recruiter connection is often cited as being worth $15K–$80K in salary negotiation, and a mentor relationship can shorten a career inflection point by years. Yet this value is invisible, untracked, and often wasted because follow-through fails. By some estimates, 84% of conference connections are never followed up on (HBR). The economic cost of lost social capital is largely hidden.
 
 ## Solution
 
@@ -26,7 +26,7 @@ Ghosty is a voice-first mobile conference companion that captures the context be
 - Real OpenAI Whisper transcription when API key is configured.
 - Real Claude extraction following `.kiro/steering/extraction-prompt.md` — structured contact cards with name, company, role, intent tag, follow-up date, key details, and uncertainty marking.
 - Three capture modes: text note, voice memo, or transcript upload.
-- AI-powered review with auto-generated summary, key points, and action items.
+- Rule-based review that auto-generates a summary, key points, and action items from the transcript (sentence-splitting and keyword matching in `src/services/ghosty.ts` — not an LLM call).
 - Deterministic demo fallbacks when API keys are absent — the app is fully functional for judging without any keys.
 
 ### Transparent Connection Value Score (The Transparency Guardrail)
@@ -73,11 +73,11 @@ Ghosty is a voice-first mobile conference companion that captures the context be
 - Full AI pipeline: expo-av recording → Whisper transcription → Claude extraction → transparent scoring → AI draft generation → AI draft refinement.
 - Spec-driven development with 6 specs, 4 hooks, and 3 steering docs in `.kiro/`.
 - Real API integrations (Whisper + Claude) with deterministic demo fallbacks.
-- Production-ready Supabase schema with RLS, edge function for server-side processing.
+- Supabase schema with RLS policies, plus an edge function for server-side Whisper → Claude processing — designed for real persistence but not yet wired into the running app (which currently stores data in memory).
 - TypeScript strict mode, zero type errors across the entire codebase.
 
 ### Impact Signal
-- Solves a real, quantifiable problem: 84% of conference connections are never followed up on.
+- Addresses a widely cited problem: an estimated 84% of conference connections are never followed up on (HBR).
 - The transparency guardrail makes invisible economic value visible and actionable.
 - Real customer journey: student attends event → captures conversations → sees career value → sends personalized follow-ups → converts connections into opportunities.
 - Privacy-first design: tap-to-record, no ambient capture, user-owned data.

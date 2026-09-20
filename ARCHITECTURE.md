@@ -19,7 +19,7 @@ flowchart TD
 ## App Flow
 1. Sign in → Profile (editable bio, resumes, skills, QR)
 2. Events → View attending companies, booth summaries, recruiter lists, pitch hints
-3. Attend Booth → Log conversation via text, voice, or upload → AI review with key points and action items
+3. Attend Booth → Log conversation via text, voice, or upload → rule-based review (summary, key points, and action items via keyword/sentence matching, not an LLM call)
 4. Follow Up → Prioritized queue → AI-drafted messages with "Make shorter", "More formal", "Add skill highlight"
 5. Magic Wand → Job Search by title/company or Referral Assist with example prompts
 6. QR → Share identity code for quick exchange
@@ -31,9 +31,9 @@ flowchart TD
 - `src/services/whisper.ts` — OpenAI Whisper API when `EXPO_PUBLIC_OPENAI_API_KEY` is set
 - `src/services/claude.ts` — Claude extraction (following `.kiro/steering/extraction-prompt.md`) and draft generation when `EXPO_PUBLIC_ANTHROPIC_API_KEY` is set
 - `src/components/FollowUp/DraftMessage.tsx` — Claude-powered quick actions for draft refinement
-- `src/services/ghosty.ts` — Network search, event analysis, meeting transcript analysis
+- `src/services/ghosty.ts` — Network search, event analysis, meeting transcript analysis (rule-based keyword/sentence matching; no external AI call)
 
-All services return deterministic demo data when keys are absent.
+Whisper, Claude, and the draft quick actions return deterministic demo data when API keys are absent.
 
 ## Scoring
 `src/services/scoring.ts` computes a transparent Connection Value Score (1-10):
